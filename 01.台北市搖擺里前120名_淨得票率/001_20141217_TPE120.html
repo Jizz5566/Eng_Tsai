@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&libraries=panoramio sensor=false"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <!-- 選擇性佈景主題 -->
+    <link href="https://developers.google.com/fusiontables/docs/samples/style/default.css" rel="stylesheet" type="text/css">
+    <style>
+    #map-canvas {
+        width: auto;
+        height: 400px;
+    }
+    .layer-wizard-search-label {
+        font-family: sans-serif
+    }
+    /*     #visualization {
+    width:600px;
+    height: 400px;
+    
+    float: right;
+} */
+    </style>
+    <script type="text/javascript">
+    google.load('visualization', '1', {
+        packages: ['corechart']
+    });
+    var map;
+    var layer_0;
+    var layer_1;
+    var geocoder;
+
+    function initialize() {
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+            center: new google.maps.LatLng(25.072301506619418, 121.54314022617177),
+            zoom: 13,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            },
+        });
+        geocoder = new google.maps.Geocoder();
+        layer_0 = new google.maps.FusionTablesLayer({
+            query: {
+                select: "col19",
+                from: "1_yFTz7TTW4YcyvbSrjK3L_I61Ep_eNsJhB_c8sWv",
+            },
+            map: map,
+            styleId: 3,
+            templateId: 3
+        });
+        layer_1 = new google.maps.FusionTablesLayer({
+            query: {
+                select: "col1>>0",
+                from: "1_yFTz7TTW4YcyvbSrjK3L_I61Ep_eNsJhB_c8sWv",
+            },
+            map: map,
+            styleId: 2,
+            templateId: 2
+        });
+        updateLayerQuery(layer_0, villige);
+        layer_0.setMap(map);
+        styleMap(map);
+        //layer_1.setMap(map);
+        drawVisualization('文山區興旺里');
+
+        google.maps.event.addListener(layer_0, 'click', function(e) {
+            var villige = e.row['Villige'].value;
+            drawVisualization(villige);
+        });
+
+        google.maps.event.addDomListener(document.getElementById('villige'),
+            'change',
+            function() {
+                var villige = this.value;
+                //e.row['Villige'].value;
+                codeAddress();
+                updateLayerQuery(layer_0, villige);
+                drawVisualization(villige);
+            });
+
+    }
+
+    function styleMap(map) {
+        var style = [{
+            featureType: 'road.highway',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'road.local',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'administrative.country',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'administrative.province',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'administrative.locality',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'administrative.neighborhood',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'administrative.land_parcel',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }, {
+            featureType: 'transit',
+            elementType: 'all',
+            stylers: [{
+                visibility: 'off'
+            }]
+        }];
+        var styledMapType = new google.maps.StyledMapType(style, {
+            map: map,
+            name: 'Styled Map'
+        });
+        map.mapTypes.set('map-style', styledMapType);
+        map.setMapTypeId('map-style');
+    }
+
+    function codeAddress() {
+        var address = document.getElementById('villige').value;
+        geocoder.geocode({
+            'address': address
+        }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                /*var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });*/
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    function updateLayerQuery(layer_0, villige) {
+        var where = " Villige = '" + villige + "'";
+        layer_0.setOptions({
+            query: {
+                select: 'geometry',
+                from: '1_yFTz7TTW4YcyvbSrjK3L_I61Ep_eNsJhB_c8sWv',
+                where: where
+            }
+            /*styles: [{
+                    polygonOptions: {
+                        fillColor: "#00FF00",
+                        fillOpacity: 0.3
+                    }
+                }, {
+                    where: "Stdv > 0",
+                    polygonOptions: {
+                        fillColor: "#0000FF"
+                    }
+                }, {
+                    where: "Stdv < 0",
+                    polygonOptions: {
+                        fillOpacity: 1.0
+                    }
+                }]*/
+        });
+        layer_1.setOptions({
+            query: {
+                select: 'col1>>0',
+                from: '1_yFTz7TTW4YcyvbSrjK3L_I61Ep_eNsJhB_c8sWv',
+                where: where
+            }
+        });
+
+    }
+
+    function drawVisualization(villige) {
+        google.visualization.drawChart({
+            containerId: "visualization",
+            dataSourceUrl: "http://www.google.com/fusiontables/gvizdata?tq=",
+            query: "SELECT Villige,'1998淨得票率','2002淨得票率','2006淨得票率','2010淨得票率'" +
+                "FROM 1_yFTz7TTW4YcyvbSrjK3L_I61Ep_eNsJhB_c8sWv WHERE Villige = '" + villige + "'",
+            chartType: "ColumnChart",
+            options: {
+                title: villige,
+                height: 400,
+                width: 500,
+                legend: {
+                    position: 'top',
+                    maxLines: 2,
+                    vAxis: {
+                        format: '#,###%'
+                    }
+                }
+            }
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+    <h1>台北市搖擺里前120名地圖</h1>
+<div id="comment">
+    <ol>
+        <h3>圖表說明：</h3>
+        <li>以搖擺程度分顏色圖層分類，以標準差分為四級級距：
+            <br/> （1）0.015～0.038、（2）0.038～0.06、（3）0.06～0.083、（4）0.083～0.105
+        </li>
+        <li>用圖示（icon)作為人口成長率的篩選條件（正負30%，正值明顯圖示）</li>
+        <li>圖示指標說明：里名、搖擺里名次、選舉人口數（2010）、人口成長率、（註記）</li>
+        <li>區域顏色說明：里名、2010的得票率與淨得票率、1998年的得票率與淨得票率</li>
+    </ol>
+</div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span4">
+                <form>
+                    <label>台北市搖擺里</label>
+                    <select id="villige" class="dropdown-toggle"  data-toggle="dropdown" >
+                        <option value="文山區興旺里">1_文山區興旺里</option>
+                        <option value="萬華區新安里">2_萬華區新安里</option>
+                        <option value="大安區龍坡里">3_大安區龍坡里</option>
+                        <option value="內湖區紫陽里">4_內湖區紫陽里</option>
+                        <option value="中正區幸市里">5_中正區幸市里</option>
+                        <option value="信義區黎安里">6_信義區黎安里</option>
+                        <option value="士林區福林里">7_士林區福林里</option>
+                        <option value="中山區圓山里">8_中山區圓山里</option>
+                        <option value="北投區建民里">9_北投區建民里</option>
+                        <option value="信義區大仁里">10_信義區大仁里</option>
+                        <option value="萬華區柳鄉里">11_萬華區柳鄉里</option>
+                        <option value="松山區自強里">12_松山區自強里</option>
+                        <option value="內湖區葫洲里">13_內湖區葫洲里</option>
+                        <option value="中山區成功里">14_中山區成功里</option>
+                        <option value="士林區翠山里">15_士林區翠山里</option>
+                        <option value="北投區稻香里">16_北投區稻香里</option>
+                        <option value="士林區社園里">17_士林區社園里</option>
+                        <option value="中正區富水里">18_中正區富水里</option>
+                        <option value="萬華區新起里">19_萬華區新起里</option>
+                        <option value="士林區富洲里">20_士林區富洲里</option>
+                        <option value="北投區泉源里">21_北投區泉源里</option>
+                        <option value="大安區建倫里">22_大安區建倫里</option>
+                        <option value="萬華區日祥里">23_萬華區日祥里</option>
+                        <option value="大安區昌隆里">24_大安區昌隆里</option>
+                        <option value="中正區文北里">25_中正區文北里</option>
+                        <option value="士林區社新里">26_士林區社新里</option>
+                        <option value="南港區中南里">27_南港區中南里</option>
+                        <option value="松山區富泰里">28_松山區富泰里</option>
+                        <option value="中正區文祥里">29_中正區文祥里</option>
+                        <option value="萬華區榮德里">30_萬華區榮德里</option>
+                        <option value="士林區福安里">31_士林區福安里</option>
+                        <option value="士林區福志里">32_士林區福志里</option>
+                        <option value="萬華區雙園里">33_萬華區雙園里</option>
+                        <option value="大同區國順里">34_大同區國順里</option>
+                        <option value="士林區社子里">35_士林區社子里</option>
+                        <option value="松山區中崙里">36_松山區中崙里</option>
+                        <option value="大安區建安里">37_大安區建安里</option>
+                        <option value="士林區天山里">38_士林區天山里</option>
+                        <option value="士林區聖山里">39_士林區聖山里</option>
+                        <option value="內湖區週美里">40_內湖區週美里</option>
+                        <option value="南港區舊莊里">41_南港區舊莊里</option>
+                        <option value="士林區福華里">42_士林區福華里</option>
+                        <option value="文山區景行里">43_文山區景行里</option>
+                        <option value="中山區松江里">44_中山區松江里</option>
+                        <option value="大同區建泰里">45_大同區建泰里</option>
+                        <option value="南港區南港里">46_南港區南港里</option>
+                        <option value="松山區中正里">47_松山區中正里</option>
+                        <option value="大同區至聖里">48_大同區至聖里</option>
+                        <option value="大安區虎嘯里">49_大安區虎嘯里</option>
+                        <option value="大安區龍門里">50_大安區龍門里</option>
+                        <option value="內湖區內溝里">51_內湖區內溝里</option>
+                        <option value="萬華區錦德里">52_萬華區錦德里</option>
+                        <option value="士林區陽明里">53_士林區陽明里</option>
+                        <option value="大同區重慶里">54_大同區重慶里</option>
+                        <option value="大安區民輝里">55_大安區民輝里</option>
+                        <option value="萬華區和德里">56_萬華區和德里</option>
+                        <option value="南港區東新里">57_南港區東新里</option>
+                        <option value="士林區永倫里">58_士林區永倫里</option>
+                        <option value="大同區玉泉里">59_大同區玉泉里</option>
+                        <option value="信義區正和里">60_信義區正和里</option>
+                        <option value="中正區南門里">61_中正區南門里</option>
+                        <option value="萬華區綠堤里">62_萬華區綠堤里</option>
+                        <option value="士林區承德里">63_士林區承德里</option>
+                        <option value="大安區群英里">64_大安區群英里</option>
+                        <option value="信義區永吉里">65_信義區永吉里</option>
+                        <option value="中正區新營里">66_中正區新營里</option>
+                        <option value="松山區東光里">67_松山區東光里</option>
+                        <option value="大同區光能里">68_大同區光能里</option>
+                        <option value="中山區龍洲里">69_中山區龍洲里</option>
+                        <option value="內湖區行善里">70_內湖區行善里</option>
+                        <option value="大安區黎元里">71_大安區黎元里</option>
+                        <option value="萬華區糖廍里">72_萬華區糖廍里</option>
+                        <option value="松山區慈祐里">73_松山區慈祐里</option>
+                        <option value="松山區福成里">74_松山區福成里</option>
+                        <option value="中山區劍潭里">75_中山區劍潭里</option>
+                        <option value="文山區順興里">76_文山區順興里</option>
+                        <option value="士林區葫東里">77_士林區葫東里</option>
+                        <option value="中正區光復里">78_中正區光復里</option>
+                        <option value="大同區建功里">79_大同區建功里</option>
+                        <option value="萬華區富民里">80_萬華區富民里</option>
+                        <option value="信義區長春里">81_信義區長春里</option>
+                        <option value="文山區明興里">82_文山區明興里</option>
+                        <option value="大安區仁愛里">83_大安區仁愛里</option>
+                        <option value="中山區埤頭里">84_中山區埤頭里</option>
+                        <option value="大同區雙連里">85_大同區雙連里</option>
+                        <option value="北投區溫泉里">86_北投區溫泉里</option>
+                        <option value="中正區南福里">87_中正區南福里</option>
+                        <option value="大安區敦安里">88_大安區敦安里</option>
+                        <option value="松山區精忠里">89_松山區精忠里</option>
+                        <option value="信義區西村里">90_信義區西村里</option>
+                        <option value="士林區葫蘆里">91_士林區葫蘆里</option>
+                        <option value="萬華區新忠里">92_萬華區新忠里</option>
+                        <option value="中正區愛國里">93_中正區愛國里</option>
+                        <option value="中正區水源里">94_中正區水源里</option>
+                        <option value="大安區敦煌里">95_大安區敦煌里</option>
+                        <option value="南港區百福里">96_南港區百福里</option>
+                        <option value="大安區福住里">97_大安區福住里</option>
+                        <option value="萬華區青山里">98_萬華區青山里</option>
+                        <option value="北投區東華里">99_北投區東華里</option>
+                        <option value="北投區關渡里">100_北投區關渡里</option>
+                        <option value="大同區南芳里">101_大同區南芳里</option>
+                        <option value="松山區吉祥里">102_松山區吉祥里</option>
+                        <option value="萬華區福音里">103_萬華區福音里</option>
+                        <option value="南港區新光里">104_南港區新光里</option>
+                        <option value="大安區義安里">105_大安區義安里</option>
+                        <option value="士林區蘭興里">106_士林區蘭興里</option>
+                        <option value="大安區古風里">107_大安區古風里</option>
+                        <option value="北投區秀山里">108_北投區秀山里</option>
+                        <option value="中正區龍光里">109_中正區龍光里</option>
+                        <option value="內湖區五分里">112_內湖區五分里</option>
+                        <option value="北投區中庸里">113_北投區中庸里</option>
+                        <option value="中山區復華里">114_中山區復華里</option>
+                        <option value="信義區五常里">115_信義區五常里</option>
+                        <option value="中山區聚葉里">116_中山區聚葉里</option>
+                        <option value="北投區立賢里">117_北投區立賢里</option>
+                        <option value="萬華區菜園里">118_萬華區菜園里</option>
+                        <option value="大安區永康里">119_大安區永康里</option>
+                        <option value="北投區桃源里">120_北投區桃源里</option>
+                    </select>
+                </form>
+            </div>
+            <div class="span5">
+                <div id="visualization"></div>
+            </div>
+        </div>
+    </div>
+    <div id="map-canvas"></div>
+</body>
+
+</html>
