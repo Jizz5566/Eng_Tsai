@@ -11,7 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link type="text/css" href="css/default.css" rel="stylesheet" media="all" />
+    <!-- <link type="text/css" href="css/default.css" rel="stylesheet" media="all" /> -->
+    <link type="text/css" href="css/infowindow.css" rel="stylesheet" media="all" />
     <style type="text/css">
     html,
     body,
@@ -136,7 +137,7 @@
         // Replace the xxx with your Fusion Tables IDs. 
         //You can use FT Wizard http://fusion-tables-api-samples.googlecode.com/svn/trunk/FusionTablesLayerWizard/src/index.html
 
-        Geojson();
+        TownName_Json();
 
         //用迴圈畫三層地圖
         for (var i = 0; i < tableId.length; i++) {
@@ -279,39 +280,56 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    function Geojson() {
-            $.ajax({
-                url: "TWN_Town_6cities2.geojson",
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    //data = $.parseJSON(data);
-                    var markers = data.result;
-                    for (var i = 0; i < 158; i++) {
-                        var lng = data.features[i].geometry.coordinates[0];
-                        var lat = data.features[i].geometry.coordinates[1];
-                        var town = data.features[i].properties.TOWN_NAME;
-                        var mapLabel = new MapLabel({
-                            minZoom: 8,
-                            text: town,
-                            position: new google.maps.LatLng(lat, lng),
-                            map: map,
-                            fontSize: 16,
-                            fontColor: '#ffff00',
-                            strokeWeight: 5,
-                            strokeColor: '#000000',
-                            zIndex: 2,
-                            align: 'center'
-                        });
-                        mapLabel.set('position', mapLabel.position);
-                    }
-
-                },
-                error: function() {
-                    alert("ERROR!!!");
-                }
-            });
+    function TownName_Json(data) {
+        var query = "SELECT latitude, longitude, " +
+            "COUNTY_ID , County_NAME, TOWN_NAME " +
+            "FROM 1OUevGG1bi9g8ULlTdjvGdkRjy4kYhokkSuNZedG3 ";
+        var where = generateWhere();
+        if (where) {
+            query += "WHERE " + where;
         }
+        var queryText = encodeURIComponent(query);
+
+        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        url.push('?sql=' + queryText);
+        url.push('&key=AIzaSyDYnfgKBk-W_pXHjuYYSemkPFNFZhGQ-Q0');
+        //url.push('&callback=TownName_Json');
+
+        $.ajax({
+            type: 'GET',
+            url: url.join(''),
+            jsonpCallback: 'jsonCallback',
+            dataType: 'json',
+            success: function(data) {
+                //console.log(data);
+                for (var i = 0; i < data.rows.length; i++) {
+                    var lng = data.rows[i][0];
+                    var lat = data.rows[i][1];
+                    var town = data.rows[i][4];
+                    //console.log(town);
+                    mapLabel = new MapLabel({
+                        minZoom: 9,
+                        text: town,
+                        position: new google.maps.LatLng(lat, lng),
+                        map: map,
+                        fontSize: 16,
+                        fontColor: '#ffff00',
+                        strokeWeight: 5,
+                        strokeColor: '#000000',
+                        zIndex: 2,
+                        align: 'center'
+                    });
+                    mapLabel.set('position', mapLabel.position);
+                }
+            dataLength = data.rows.length ;
+            return dataLength ;
+            },
+            error: function() {
+                alert("ERROR!!!");
+            }
+        });
+
+    }
 
     function codeAddress(add) {
         var geocoder = new google.maps.Geocoder();
@@ -329,6 +347,7 @@
 
     function filterMap(layer_, tableId, map) {
         var where = generateWhere();
+        TownName_Json();
         for (var i = 0; i < 3; i++) {
             if (where) {
                 for (var i = 0; i < 3; i++) {
@@ -400,7 +419,6 @@
                 </ul>
             </li>
             <li>點選各縣市radio單選圓點可顯示該縣市區域</li>
-            <li>Slider選軸兩邊可切換年度，左上角黑色固定區塊顯示年度</li>
             <li>點選各里區塊，會顯示該里兩個年度的得票率資訊，可點選tab切換不同陣營。</li>
         </ol>
         <em>註：新北市的顯示計算方式不同，是以所以藍營衰退的里，再去看該里的綠營得票率</em>
