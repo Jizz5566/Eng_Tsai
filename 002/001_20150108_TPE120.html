@@ -58,9 +58,18 @@
         font-size: 11px;
     }
     </style>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript">
     var map;
@@ -111,7 +120,7 @@
             styleId: 3,
             templateId: 5
         });
-        layer_0 = new google.maps.FusionTablesLayer({
+        /*layer_0 = new google.maps.FusionTablesLayer({
             query: {
                 select: "col0>>0",
                 from: "1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC"
@@ -120,7 +129,7 @@
             suppressInfoWindows: true,
             styleId: 7,
             templateId: 10
-        });
+        });*/
 
         google.maps.event.addDomListener(document.getElementById('search-string_0'),
             'change',
@@ -131,22 +140,22 @@
                 codeAddress();
                 changeMap_0();
                 layer_1.setMap(map);
-                layer_0.setMap(map);
+                //layer_0.setMap(map);
             });
-        google.maps.event.addListener(layer_0, 'click', function(e) {
+        google.maps.event.addListener(layer_1, 'click', function(e) {
             var villige = e.row['Villige'].value;
             var nodeCol = document.createElement('div');
             if (infowindow) infowindow.close();
             else infowindow = new google.maps.InfoWindow();
             infowindow.setContent('<div class="tabs">' +
                 '<ul>' +
-                '<h3>臺北市長選舉支持率排名：' + e.row['Rank'].value + '</h3>' +
+                '<h4>臺北市長選舉支持率排名：' + e.row['Rank'].value + '</h4>' +
                 '</ul>' +
                 '<div id="tab-2" style="overflow:hidden;">' + //firts tab content 
-                '<h3><b>' + e.row['Villige'].value + '</b></h3>' +
+                '<h4><b>' + e.row['Villige'].value + '</b></h4>' +
                 '<b align="left">1998-2010支持率標準差：' + e.row['std1998-2010'].value + '</b>' +
                 '</br>' +
-                '<iframe frameborder="no" src="https://www.google.com/fusiontables/embedviz?containerId=googft-gviz-canvas&q=select+col0%3E%3E0%2C+col7%3E%3E0%2C+col8%3E%3E0%2C+col9%3E%3E0%2C+col10%3E%3E0%2C+col11%3E%3E0%2C+col12%3E%3E0+from+1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC+%20WHERE%20Villige=%27' + e.row['Villige'].value + '%27+order+by+col7%3E%3E0+asc+limit+10&viz=GVIZ&t=COLUMN&uiversion=2&gco_forceIFrame=true&gco_hasLabelsColumn=true&gco_vAxes=%5B%7B%22title%22%3A%22%E6%94%AF%E6%8C%81%E7%8E%87%22%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22useFormatFromData%22%3Afalse%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22formatOptions%22%3A%7B%22source%22%3A%22inline%22%2C+%22suffix%22%3A%22%25%22%2C+%22prefix%22%3A%22%22%2C+%22scaleFactor%22%3A%220.01%22%7D%2C+%22format%22%3A%220.%23%23%22%7D%2C%7B%22useFormatFromData%22%3Atrue%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%7D%5D&gco_useFirstColumnAsDomain=true&gco_isStacked=false&gco_booleanRole=certainty&gco_hAxis=%7B%22useFormatFromData%22%3Atrue%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22viewWindow%22%3Anull%2C+%22viewWindowMode%22%3Anull%7D&gco_legend=none&gco_title=&gco_theme=maximized&gco_tooltip=%7B%22isHtml%22%3Atrue%7D&gco_series=%7B%220%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%221%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%222%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%223%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%224%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%225%22%3A%7B%22targetAxisIndex%22%3A0%2C+%22color%22%3A%22none%22%2C+%22errorBars%22%3A%7B%22errorType%22%3A%22none%22%7D%7D%7D&tmplt=6&width=220&height=140" width="270" height="150" scrolling="no" />' +
+                '<iframe frameborder="no" src="https://www.google.com/fusiontables/embedviz?containerId=googft-gviz-canvas&q=select+col0%3E%3E0%2C+col7%3E%3E0%2C+col8%3E%3E0%2C+col9%3E%3E0%2C+col10%3E%3E0%2C+col11%3E%3E0%2C+col12%3E%3E0+from+1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC+%20WHERE%20Villige=%27' + e.row['Villige'].value + '%27+order+by+col7%3E%3E0+asc+limit+10&viz=GVIZ&t=COLUMN&uiversion=2&gco_forceIFrame=true&gco_hasLabelsColumn=true&gco_vAxes=%5B%7B%22title%22%3A%22%E6%94%AF%E6%8C%81%E7%8E%87%22%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22useFormatFromData%22%3Afalse%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22formatOptions%22%3A%7B%22source%22%3A%22inline%22%2C+%22suffix%22%3A%22%25%22%2C+%22prefix%22%3A%22%22%2C+%22scaleFactor%22%3A%220.01%22%7D%2C+%22format%22%3A%220.%23%23%22%7D%2C%7B%22useFormatFromData%22%3Atrue%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%7D%5D&gco_useFirstColumnAsDomain=true&gco_isStacked=false&gco_booleanRole=certainty&gco_hAxis=%7B%22useFormatFromData%22%3Atrue%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22viewWindow%22%3Anull%2C+%22viewWindowMode%22%3Anull%7D&gco_legend=none&gco_title=&gco_theme=maximized&gco_tooltip=%7B%22isHtml%22%3Atrue%7D&gco_series=%7B%220%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%221%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%222%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%223%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%224%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%225%22%3A%7B%22targetAxisIndex%22%3A0%2C+%22color%22%3A%22none%22%2C+%22errorBars%22%3A%7B%22errorType%22%3A%22none%22%7D%7D%7D&tmplt=6&width=250&height=140" width="300" height="150" scrolling="no" />' +
                 '</div>');
             infowindow.setPosition(e.latLng);
             infowindow.open(map);
@@ -170,13 +179,13 @@
                 where: whereClause
             }
         });
-        layer_0.setOptions({
+        /*layer_0.setOptions({
             query: {
                 select: "col0>>0",
                 from: "1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC",
                 where: whereClause
             }
-        });
+        });*/
         return whereClause;
 
     }
@@ -197,6 +206,7 @@
     }
 
     function clearList() {
+        infowindow.close();
         document.getElementById("search-string_0").value = "--Select--";
         changeMap_0();
     }
@@ -204,8 +214,42 @@
 </head>
 
 <body>
-    <h1>台北市搖擺里前120名地圖（支持率）</h1>
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./001_20150108_TPE120.html">Page 1-1</a>
+                            </li>
+                            <li><a href="#">Page 1-2</a>
+                            </li>
+                            <li><a href="#">Page 1-3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Page 2</a>
+                    </li>
+                    <li><a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
     <div id="container">
+    <h1>台北市搖擺里前120名地圖（支持率）</h1>
         <ol>
             <h3>圖表說明：</h3>
             <li>以1998-2010的支持率標準差分為五級級距（顏色愈率代表std值愈高）：
@@ -378,6 +422,19 @@
         </div>
         <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
     </div>
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 </body>
 
 </html>
