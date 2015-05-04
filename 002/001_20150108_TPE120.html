@@ -57,6 +57,10 @@
         color: #666;
         font-size: 11px;
     }
+    .ct-title{
+        color: white;
+        font-weight: bold;
+    }
     </style>
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -135,7 +139,7 @@
             'change',
             function() {
                 if (infowindow) {
-                infowindow.close();    
+                    infowindow.close();
                 };
                 codeAddress();
                 changeMap_0();
@@ -206,7 +210,7 @@
     }
 
     function clearList() {
-        infowindow.close();
+        if (infowindow) infowindow.close();
         document.getElementById("search-string_0").value = "--Select--";
         changeMap_0();
     }
@@ -214,214 +218,217 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">WebSiteName</a>
+        <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../index.html">
+                        <h3>小英基金會－</h3>
+                        <h3>選舉地圖專案</h3>
+                    </a>
+                </li>
+                <hr color=gray size=3 align=center width=100% >
+                <hr color=gray size=3 align=center width=100% >
+                <li><span class="ct-title">01.台北市搖擺里前120名_支持率</span><a href="../002/001_20150108_TPE120.html">
+                (第一版)下拉選單+圖表+自動定位</a>
+                </li>
+                <hr color=gray size=3 align=center width=100% >
+                <li><span class="ct-title">02.2010與2014年六都選舉差距</span>
+                <a href="../004/003_20150416_2010-2014_votediff_filter.html">
+                (第三版)得票率+年度切換+人數門檻</a></li>
+                <hr color=gray size=3 align=center width=100% >
+                <li><span class="ct-title">03.2010與2014年四都投票率比較</span>
+                <a href="../005/001_20150418_2010-2014_comparison.html">
+                (第一版)投票率+按鈕切換+顏色資訊方塊</a></li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                    <div class="row">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">隱藏選單</a>
+                    <h1>台北市搖擺里前120名地圖（支持率）</h1>
+                    <ol>
+                        <h3>圖表說明：</h3>
+                        <li>以1998-2010的支持率標準差分為五級級距（顏色愈率代表std值愈高）：
+                            <ul>
+                                <li>（1）0.06～0.068</li>
+                                <li>（2）0.068～0.07</li>
+                                <li>（3）0.07～0.08</li>
+                                <li>（4）0.08～0.09</li>
+                                <li>（5）0.09～0.1</li>
+                            </ul>
+                        </li>
+                        <li>點選上方排名選單，地圖會自動移至該里並且只顯示該里區塊</li>
+                        <li>點擊[Clear]按鈕可顯示全部搖擺里分佈地圖</li>
+                        <li>直接點選各里氣泡圖示，便會顯示1998-2010歷年支持率與2014年支持率圖表比較。</li>
+                    </ol>
+                </div>
+                <div style="margin-top: 10px;">
+                    <label class="layer-wizard-search-label">
+                        支持率前1-120名：
+                        <select id="search-string_0" onchange="changeMap_0(this.value);">
+                            <option value="--Select--">--Select--</option>
+                            <option value="松山區慈祐里">(1)松山區慈祐里</option>
+                            <option value="中山區行政里">(2)中山區行政里</option>
+                            <option value="士林區福德里">(3)士林區福德里</option>
+                            <option value="大同區揚雅里">(4)大同區揚雅里</option>
+                            <option value="文山區老泉里">(5)文山區老泉里</option>
+                            <option value="南港區南港里">(6)南港區南港里</option>
+                            <option value="士林區葫東里">(7)士林區葫東里</option>
+                            <option value="士林區前港里">(8)士林區前港里</option>
+                            <option value="內湖區週美里">(9)內湖區週美里</option>
+                            <option value="士林區平等里">(10)士林區平等里</option>
+                            <option value="士林區富洲里">(11)士林區富洲里</option>
+                            <option value="士林區社新里">(12)士林區社新里</option>
+                            <option value="北投區清江里">(13)北投區清江里</option>
+                            <option value="萬華區富福里">(14)萬華區富福里</option>
+                            <option value="南港區東新里">(15)南港區東新里</option>
+                            <option value="內湖區葫洲里">(16)內湖區葫洲里</option>
+                            <option value="大同區建功里">(17)大同區建功里</option>
+                            <option value="士林區溪山里">(18)士林區溪山里</option>
+                            <option value="萬華區頂碩里">(19)萬華區頂碩里</option>
+                            <option value="萬華區綠堤里">(20)萬華區綠堤里</option>
+                            <option value="大同區重慶里">(21)大同區重慶里</option>
+                            <option value="文山區景行里">(22)文山區景行里</option>
+                            <option value="信義區永吉里">(23)信義區永吉里</option>
+                            <option value="內湖區五分里">(24)內湖區五分里</option>
+                            <option value="士林區承德里">(25)士林區承德里</option>
+                            <option value="士林區福順里">(26)士林區福順里</option>
+                            <option value="南港區百福里">(27)南港區百福里</option>
+                            <option value="南港區西新里">(28)南港區西新里</option>
+                            <option value="北投區一德里">(29)北投區一德里</option>
+                            <option value="內湖區湖興里">(30)內湖區湖興里</option>
+                            <option value="北投區大同里">(31)北投區大同里</option>
+                            <option value="北投區關渡里">(32)北投區關渡里</option>
+                            <option value="士林區社子里">(33)士林區社子里</option>
+                            <option value="北投區中央里">(34)北投區中央里</option>
+                            <option value="士林區福安里">(35)士林區福安里</option>
+                            <option value="信義區五常里">(36)信義區五常里</option>
+                            <option value="士林區百齡里">(37)士林區百齡里</option>
+                            <option value="北投區洲美里">(38)北投區洲美里</option>
+                            <option value="內湖區行善里">(39)內湖區行善里</option>
+                            <option value="士林區富光里">(40)士林區富光里</option>
+                            <option value="大同區永樂里">(41)大同區永樂里</option>
+                            <option value="萬華區孝德里">(42)萬華區孝德里</option>
+                            <option value="萬華區全德里">(43)萬華區全德里</option>
+                            <option value="萬華區和平里">(44)萬華區和平里</option>
+                            <option value="南港區鴻福里">(45)南港區鴻福里</option>
+                            <option value="內湖區港都里">(46)內湖區港都里</option>
+                            <option value="北投區桃源里">(47)北投區桃源里</option>
+                            <option value="中山區朱崙里">(48)中山區朱崙里</option>
+                            <option value="南港區新富里">(49)南港區新富里</option>
+                            <option value="大同區蓬萊里">(50)大同區蓬萊里</option>
+                            <option value="信義區大道里">(51)信義區大道里</option>
+                            <option value="南港區舊莊里">(52)南港區舊莊里</option>
+                            <option value="內湖區樂康里">(53)內湖區樂康里</option>
+                            <option value="中正區廈安里">(54)中正區廈安里</option>
+                            <option value="中山區行仁里">(55)中山區行仁里</option>
+                            <option value="大同區星明里">(56)大同區星明里</option>
+                            <option value="大同區雙連里">(57)大同區雙連里</option>
+                            <option value="南港區合成里">(58)南港區合成里</option>
+                            <option value="萬華區和德里">(59)萬華區和德里</option>
+                            <option value="士林區蘭雅里">(60)士林區蘭雅里</option>
+                            <option value="萬華區榮德里">(61)萬華區榮德里</option>
+                            <option value="北投區尊賢里">(62)北投區尊賢里</option>
+                            <option value="士林區福中里">(63)士林區福中里</option>
+                            <option value="萬華區日善里">(64)萬華區日善里</option>
+                            <option value="北投區石牌里">(65)北投區石牌里</option>
+                            <option value="信義區雅祥里">(66)信義區雅祥里</option>
+                            <option value="大同區老師里">(67)大同區老師里</option>
+                            <option value="中山區江寧里">(68)中山區江寧里</option>
+                            <option value="北投區文林里">(69)北投區文林里</option>
+                            <option value="內湖區內湖里">(70)內湖區內湖里</option>
+                            <option value="北投區立農里">(71)北投區立農里</option>
+                            <option value="萬華區華中里">(72)萬華區華中里</option>
+                            <option value="大同區南芳里">(73)大同區南芳里</option>
+                            <option value="南港區中南里">(74)南港區中南里</option>
+                            <option value="信義區四育里">(75)信義區四育里</option>
+                            <option value="中正區文祥里">(76)中正區文祥里</option>
+                            <option value="大同區鄰江里">(77)大同區鄰江里</option>
+                            <option value="士林區永倫里">(78)士林區永倫里</option>
+                            <option value="中山區新喜里">(79)中山區新喜里</option>
+                            <option value="大安區龍安里">(80)大安區龍安里</option>
+                            <option value="南港區中研里">(81)南港區中研里</option>
+                            <option value="大同區隆和里">(82)大同區隆和里</option>
+                            <option value="萬華區銘德里">(83)萬華區銘德里</option>
+                            <option value="萬華區錦德里">(84)萬華區錦德里</option>
+                            <option value="北投區奇岩里">(85)北投區奇岩里</option>
+                            <option value="南港區三重里">(86)南港區三重里</option>
+                            <option value="信義區五全里">(87)信義區五全里</option>
+                            <option value="士林區德行里">(88)士林區德行里</option>
+                            <option value="大同區保安里">(89)大同區保安里</option>
+                            <option value="文山區指南里">(90)文山區指南里</option>
+                            <option value="士林區社園里">(91)士林區社園里</option>
+                            <option value="北投區中和里">(92)北投區中和里</option>
+                            <option value="北投區裕民里">(93)北投區裕民里</option>
+                            <option value="士林區後港里">(94)士林區後港里</option>
+                            <option value="大同區朝陽里">(95)大同區朝陽里</option>
+                            <option value="萬華區興德里">(96)萬華區興德里</option>
+                            <option value="內湖區東湖里">(97)內湖區東湖里</option>
+                            <option value="信義區永春里">(98)信義區永春里</option>
+                            <option value="信義區中坡里">(99)信義區中坡里</option>
+                            <option value="中山區下埤里">(100)中山區下埤里</option>
+                            <option value="中山區江山里">(101)中山區江山里</option>
+                            <option value="中正區永昌里">(102)中正區永昌里</option>
+                            <option value="大同區光能里">(103)大同區光能里</option>
+                            <option value="松山區松基里">(104)松山區松基里</option>
+                            <option value="北投區八仙里">(105)北投區八仙里</option>
+                            <option value="北投區中庸里">(106)北投區中庸里</option>
+                            <option value="大同區斯文里">(107)大同區斯文里</option>
+                            <option value="萬華區忠德里">(108)萬華區忠德里</option>
+                            <option value="中山區集英里">(109)中山區集英里</option>
+                            <option value="萬華區菜園里">(110)萬華區菜園里</option>
+                            <option value="信義區松友里">(111)信義區松友里</option>
+                            <option value="萬華區仁德里">(112)萬華區仁德里</option>
+                            <option value="北投區立賢里">(113)北投區立賢里</option>
+                            <option value="萬華區柳鄉里">(114)萬華區柳鄉里</option>
+                            <option value="萬華區壽德里">(115)萬華區壽德里</option>
+                            <option value="信義區四維里">(116)信義區四維里</option>
+                            <option value="松山區中正里">(117)松山區中正里</option>
+                            <option value="松山區美仁里">(118)松山區美仁里</option>
+                            <option value="信義區黎忠里">(119)信義區黎忠里</option>
+                            <option value="北投區湖山里">(120)北投區湖山里</option>
+                        </select>
+                    </label>
+                    <button type="button" id="button" onclick="clearList();" id="mybutton">Clear</button>
+                    <div id="map-canvas"></div>
+                </div>
+                <div id="googft-mapCanvas"></div>
+                <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
+                <div id="googft-legend">
+                    <p id="googft-legend-title">1998-2010支持率排名</p>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: #ffffff"></span>
+                        <span class="googft-legend-range">0.06 to 0.068</span>
+                    </div>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: #f6b26b"></span>
+                        <span class="googft-legend-range">0.068 to 0.07</span>
+                    </div>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: #6aa84f"></span>
+                        <span class="googft-legend-range">0.07 to 0.08</span>
+                    </div>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: #134f5c"></span>
+                        <span class="googft-legend-range">0.08 to 0.09</span>
+                    </div>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: #00ff00"></span>
+                        <span class="googft-legend-range">0.09 to 0.1</span>
+                    </div>
+                    <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="./001_20150108_TPE120.html">Page 1-1</a>
-                            </li>
-                            <li><a href="#">Page 1-2</a>
-                            </li>
-                            <li><a href="#">Page 1-3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Page 2</a>
-                    </li>
-                    <li><a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
-    
-    <div id="container">
-    <h1>台北市搖擺里前120名地圖（支持率）</h1>
-        <ol>
-            <h3>圖表說明：</h3>
-            <li>以1998-2010的支持率標準差分為五級級距（顏色愈率代表std值愈高）：
-                <ul>
-                    <li>（1）0.06～0.068</li>
-                    <li>（2）0.068～0.07</li>
-                    <li>（3）0.07～0.08</li>
-                    <li>（4）0.08～0.09</li>
-                    <li>（5）0.09～0.1</li>
-                </ul>
-            </li>
-            <li>點選上方排名選單，地圖會自動移至該里並且只顯示該里區塊</li>
-            <li>點擊[Clear]按鈕可顯示全部搖擺里分佈地圖</li>
-            <li>直接點選各里氣泡圖示，便會顯示1998-2010歷年支持率與2014年支持率圖表比較。</li>
-        </ol>
     </div>
-    <div style="margin-top: 10px;">
-        <label class="layer-wizard-search-label">
-            支持率前1-120名：
-            <select id="search-string_0" onchange="changeMap_0(this.value);">
-                <option value="--Select--">--Select--</option>
-                <option value="松山區慈祐里">(1)松山區慈祐里</option>
-                <option value="中山區行政里">(2)中山區行政里</option>
-                <option value="士林區福德里">(3)士林區福德里</option>
-                <option value="大同區揚雅里">(4)大同區揚雅里</option>
-                <option value="文山區老泉里">(5)文山區老泉里</option>
-                <option value="南港區南港里">(6)南港區南港里</option>
-                <option value="士林區葫東里">(7)士林區葫東里</option>
-                <option value="士林區前港里">(8)士林區前港里</option>
-                <option value="內湖區週美里">(9)內湖區週美里</option>
-                <option value="士林區平等里">(10)士林區平等里</option>
-                <option value="士林區富洲里">(11)士林區富洲里</option>
-                <option value="士林區社新里">(12)士林區社新里</option>
-                <option value="北投區清江里">(13)北投區清江里</option>
-                <option value="萬華區富福里">(14)萬華區富福里</option>
-                <option value="南港區東新里">(15)南港區東新里</option>
-                <option value="內湖區葫洲里">(16)內湖區葫洲里</option>
-                <option value="大同區建功里">(17)大同區建功里</option>
-                <option value="士林區溪山里">(18)士林區溪山里</option>
-                <option value="萬華區頂碩里">(19)萬華區頂碩里</option>
-                <option value="萬華區綠堤里">(20)萬華區綠堤里</option>
-                <option value="大同區重慶里">(21)大同區重慶里</option>
-                <option value="文山區景行里">(22)文山區景行里</option>
-                <option value="信義區永吉里">(23)信義區永吉里</option>
-                <option value="內湖區五分里">(24)內湖區五分里</option>
-                <option value="士林區承德里">(25)士林區承德里</option>
-                <option value="士林區福順里">(26)士林區福順里</option>
-                <option value="南港區百福里">(27)南港區百福里</option>
-                <option value="南港區西新里">(28)南港區西新里</option>
-                <option value="北投區一德里">(29)北投區一德里</option>
-                <option value="內湖區湖興里">(30)內湖區湖興里</option>
-                <option value="北投區大同里">(31)北投區大同里</option>
-                <option value="北投區關渡里">(32)北投區關渡里</option>
-                <option value="士林區社子里">(33)士林區社子里</option>
-                <option value="北投區中央里">(34)北投區中央里</option>
-                <option value="士林區福安里">(35)士林區福安里</option>
-                <option value="信義區五常里">(36)信義區五常里</option>
-                <option value="士林區百齡里">(37)士林區百齡里</option>
-                <option value="北投區洲美里">(38)北投區洲美里</option>
-                <option value="內湖區行善里">(39)內湖區行善里</option>
-                <option value="士林區富光里">(40)士林區富光里</option>
-                <option value="大同區永樂里">(41)大同區永樂里</option>
-                <option value="萬華區孝德里">(42)萬華區孝德里</option>
-                <option value="萬華區全德里">(43)萬華區全德里</option>
-                <option value="萬華區和平里">(44)萬華區和平里</option>
-                <option value="南港區鴻福里">(45)南港區鴻福里</option>
-                <option value="內湖區港都里">(46)內湖區港都里</option>
-                <option value="北投區桃源里">(47)北投區桃源里</option>
-                <option value="中山區朱崙里">(48)中山區朱崙里</option>
-                <option value="南港區新富里">(49)南港區新富里</option>
-                <option value="大同區蓬萊里">(50)大同區蓬萊里</option>
-                <option value="信義區大道里">(51)信義區大道里</option>
-                <option value="南港區舊莊里">(52)南港區舊莊里</option>
-                <option value="內湖區樂康里">(53)內湖區樂康里</option>
-                <option value="中正區廈安里">(54)中正區廈安里</option>
-                <option value="中山區行仁里">(55)中山區行仁里</option>
-                <option value="大同區星明里">(56)大同區星明里</option>
-                <option value="大同區雙連里">(57)大同區雙連里</option>
-                <option value="南港區合成里">(58)南港區合成里</option>
-                <option value="萬華區和德里">(59)萬華區和德里</option>
-                <option value="士林區蘭雅里">(60)士林區蘭雅里</option>
-                <option value="萬華區榮德里">(61)萬華區榮德里</option>
-                <option value="北投區尊賢里">(62)北投區尊賢里</option>
-                <option value="士林區福中里">(63)士林區福中里</option>
-                <option value="萬華區日善里">(64)萬華區日善里</option>
-                <option value="北投區石牌里">(65)北投區石牌里</option>
-                <option value="信義區雅祥里">(66)信義區雅祥里</option>
-                <option value="大同區老師里">(67)大同區老師里</option>
-                <option value="中山區江寧里">(68)中山區江寧里</option>
-                <option value="北投區文林里">(69)北投區文林里</option>
-                <option value="內湖區內湖里">(70)內湖區內湖里</option>
-                <option value="北投區立農里">(71)北投區立農里</option>
-                <option value="萬華區華中里">(72)萬華區華中里</option>
-                <option value="大同區南芳里">(73)大同區南芳里</option>
-                <option value="南港區中南里">(74)南港區中南里</option>
-                <option value="信義區四育里">(75)信義區四育里</option>
-                <option value="中正區文祥里">(76)中正區文祥里</option>
-                <option value="大同區鄰江里">(77)大同區鄰江里</option>
-                <option value="士林區永倫里">(78)士林區永倫里</option>
-                <option value="中山區新喜里">(79)中山區新喜里</option>
-                <option value="大安區龍安里">(80)大安區龍安里</option>
-                <option value="南港區中研里">(81)南港區中研里</option>
-                <option value="大同區隆和里">(82)大同區隆和里</option>
-                <option value="萬華區銘德里">(83)萬華區銘德里</option>
-                <option value="萬華區錦德里">(84)萬華區錦德里</option>
-                <option value="北投區奇岩里">(85)北投區奇岩里</option>
-                <option value="南港區三重里">(86)南港區三重里</option>
-                <option value="信義區五全里">(87)信義區五全里</option>
-                <option value="士林區德行里">(88)士林區德行里</option>
-                <option value="大同區保安里">(89)大同區保安里</option>
-                <option value="文山區指南里">(90)文山區指南里</option>
-                <option value="士林區社園里">(91)士林區社園里</option>
-                <option value="北投區中和里">(92)北投區中和里</option>
-                <option value="北投區裕民里">(93)北投區裕民里</option>
-                <option value="士林區後港里">(94)士林區後港里</option>
-                <option value="大同區朝陽里">(95)大同區朝陽里</option>
-                <option value="萬華區興德里">(96)萬華區興德里</option>
-                <option value="內湖區東湖里">(97)內湖區東湖里</option>
-                <option value="信義區永春里">(98)信義區永春里</option>
-                <option value="信義區中坡里">(99)信義區中坡里</option>
-                <option value="中山區下埤里">(100)中山區下埤里</option>
-                <option value="中山區江山里">(101)中山區江山里</option>
-                <option value="中正區永昌里">(102)中正區永昌里</option>
-                <option value="大同區光能里">(103)大同區光能里</option>
-                <option value="松山區松基里">(104)松山區松基里</option>
-                <option value="北投區八仙里">(105)北投區八仙里</option>
-                <option value="北投區中庸里">(106)北投區中庸里</option>
-                <option value="大同區斯文里">(107)大同區斯文里</option>
-                <option value="萬華區忠德里">(108)萬華區忠德里</option>
-                <option value="中山區集英里">(109)中山區集英里</option>
-                <option value="萬華區菜園里">(110)萬華區菜園里</option>
-                <option value="信義區松友里">(111)信義區松友里</option>
-                <option value="萬華區仁德里">(112)萬華區仁德里</option>
-                <option value="北投區立賢里">(113)北投區立賢里</option>
-                <option value="萬華區柳鄉里">(114)萬華區柳鄉里</option>
-                <option value="萬華區壽德里">(115)萬華區壽德里</option>
-                <option value="信義區四維里">(116)信義區四維里</option>
-                <option value="松山區中正里">(117)松山區中正里</option>
-                <option value="松山區美仁里">(118)松山區美仁里</option>
-                <option value="信義區黎忠里">(119)信義區黎忠里</option>
-                <option value="北投區湖山里">(120)北投區湖山里</option>
-            </select>
-        </label>
-        <button type="button" id="button" onclick="clearList();" id="mybutton">Clear</button>
-        <div id="map-canvas"></div>
-    </div>
-    <div id="googft-mapCanvas"></div>
-    <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
-    <div id="googft-legend">
-        <p id="googft-legend-title">1998-2010支持率排名</p>
-        <div>
-            <span class="googft-legend-swatch" style="background-color: #ffffff"></span>
-            <span class="googft-legend-range">0.06 to 0.068</span>
-        </div>
-        <div>
-            <span class="googft-legend-swatch" style="background-color: #f6b26b"></span>
-            <span class="googft-legend-range">0.068 to 0.07</span>
-        </div>
-        <div>
-            <span class="googft-legend-swatch" style="background-color: #6aa84f"></span>
-            <span class="googft-legend-range">0.07 to 0.08</span>
-        </div>
-        <div>
-            <span class="googft-legend-swatch" style="background-color: #134f5c"></span>
-            <span class="googft-legend-range">0.08 to 0.09</span>
-        </div>
-        <div>
-            <span class="googft-legend-swatch" style="background-color: #00ff00"></span>
-            <span class="googft-legend-range">0.09 to 0.1</span>
-        </div>
-        <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
-    </div>
+    <!-- /#page-content-wrapper -->
+
     <!-- jQuery -->
     <script src="../js/jquery.js"></script>
 
