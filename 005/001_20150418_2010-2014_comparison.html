@@ -395,19 +395,26 @@
                         <h3>選舉地圖專案</h3>
                     </a>
                 </li>
-                <hr color=gray size=3 align=center width=100% >
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">01.台北市搖擺里前120名_支持率</span><a href="../002/001_20150108_TPE120.html">
-                (第一版)下拉選單+圖表+自動定位</a>
+                <hr color=gray size=3 align=center width=100%>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">01.台北市搖擺里前120名</span><a href="../002/001_20150108_TPE120.html">
+                台北市歷年選舉支持率排名前120名</a>
                 </li>
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">02.2010與2014年六都選舉差距</span>
-                <a href="../004/003_20150416_2010-2014_votediff_filter.html">
-                (第三版)得票率+年度切換+人數門檻</a></li>
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">03.2010與2014年四都投票率比較</span>
-                <a href="../005/001_20150418_2010-2014_comparison.html">
-                (第一版)投票率+按鈕切換+顏色資訊方塊</a></li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">02.2010-2014六都選舉支持率差距</span>
+                    <a href="../003/004_20150507_2010-2014_suprate.html">
+                六都縣市的支持率差距地圖</a>
+                </li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">03.2010-2014六都選舉得票率差距</span>
+                    <a href="../004/003_20150416_2010-2014_votediff_filter.html">
+                六都縣市的得票率差距地圖</a>
+                </li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">04.2010-2014四都投票率比較</span>
+                    <a href="../005/001_20150418_2010-2014_comparison.html">
+                四都投票率消長變化</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -415,7 +422,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">隱藏選單</a>
+            <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
                 <h1>2010-2014年選舉年度投票率比較</h1>
                 <div id="county">
                     <div>
@@ -625,9 +632,21 @@
 
     <!-- Menu Toggle Script -->
     <script>
+    var tog = 1;
     $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
+        if (tog == 1) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $('#menu-toggle').html('<span class="glyphicon glyphicon-forward" aria-hidden="true"></span> 開啟選單');
+            tog = 0;
+            //alert(tog);
+        } else {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $('#menu-toggle').html('<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單');
+            tog = 1;
+            //alert(tog);
+        }
     });
     </script>
 

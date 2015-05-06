@@ -229,19 +229,26 @@
                         <h3>選舉地圖專案</h3>
                     </a>
                 </li>
-                <hr color=gray size=3 align=center width=100% >
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">01.台北市搖擺里前120名_支持率</span><a href="../002/001_20150108_TPE120.html">
-                (第一版)下拉選單+圖表+自動定位</a>
+                <hr color=gray size=3 align=center width=100%>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">01.台北市搖擺里前120名</span><a href="../002/001_20150108_TPE120.html">
+                台北市歷年選舉支持率排名前120名</a>
                 </li>
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">02.2010與2014年六都選舉差距</span>
-                <a href="../004/003_20150416_2010-2014_votediff_filter.html">
-                (第三版)得票率+年度切換+人數門檻</a></li>
-                <hr color=gray size=3 align=center width=100% >
-                <li><span class="ct-title">03.2010與2014年四都投票率比較</span>
-                <a href="../005/001_20150418_2010-2014_comparison.html">
-                (第一版)投票率+按鈕切換+顏色資訊方塊</a></li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">02.2010-2014六都選舉支持率差距</span>
+                    <a href="../003/004_20150507_2010-2014_suprate.html">
+                六都縣市的支持率差距地圖</a>
+                </li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">03.2010-2014六都選舉得票率差距</span>
+                    <a href="../004/003_20150416_2010-2014_votediff_filter.html">
+                六都縣市的得票率差距地圖</a>
+                </li>
+                <hr color=gray size=3 align=center width=100%>
+                <li><span class="ct-title">04.2010-2014四都投票率比較</span>
+                    <a href="../005/001_20150418_2010-2014_comparison.html">
+                四都投票率消長變化</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -250,23 +257,8 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                     <div class="row">
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">隱藏選單</a>
+                    <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
                     <h1>台北市搖擺里前120名地圖（支持率）</h1>
-                    <ol>
-                        <h3>圖表說明：</h3>
-                        <li>以1998-2010的支持率標準差分為五級級距（顏色愈率代表std值愈高）：
-                            <ul>
-                                <li>（1）0.06～0.068</li>
-                                <li>（2）0.068～0.07</li>
-                                <li>（3）0.07～0.08</li>
-                                <li>（4）0.08～0.09</li>
-                                <li>（5）0.09～0.1</li>
-                            </ul>
-                        </li>
-                        <li>點選上方排名選單，地圖會自動移至該里並且只顯示該里區塊</li>
-                        <li>點擊[Clear]按鈕可顯示全部搖擺里分佈地圖</li>
-                        <li>直接點選各里氣泡圖示，便會顯示1998-2010歷年支持率與2014年支持率圖表比較。</li>
-                    </ol>
                 </div>
                 <div style="margin-top: 10px;">
                     <label class="layer-wizard-search-label">
@@ -399,6 +391,21 @@
                     <div id="map-canvas"></div>
                 </div>
                 <div id="googft-mapCanvas"></div>
+                <ol>
+                        <h3>圖表說明：</h3>
+                        <li>以1998-2010的支持率標準差分為五級級距（顏色愈率代表std值愈高）：
+                            <ul>
+                                <li>（1）0.06～0.068</li>
+                                <li>（2）0.068～0.07</li>
+                                <li>（3）0.07～0.08</li>
+                                <li>（4）0.08～0.09</li>
+                                <li>（5）0.09～0.1</li>
+                            </ul>
+                        </li>
+                        <li>點選上方排名選單，地圖會自動移至該里並且只顯示該里區塊</li>
+                        <li>點擊[Clear]按鈕可顯示全部搖擺里分佈地圖</li>
+                        <li>直接點選各里氣泡圖示，便會顯示1998-2010歷年支持率與2014年支持率圖表比較。</li>
+                    </ol>
                 <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
                 <div id="googft-legend">
                     <p id="googft-legend-title">1998-2010支持率排名</p>
@@ -437,9 +444,21 @@
 
     <!-- Menu Toggle Script -->
     <script>
+    var tog = 1;
     $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
+        if (tog == 1) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $('#menu-toggle').html('<span class="glyphicon glyphicon-forward" aria-hidden="true"></span> 開啟選單');
+            tog = 0;
+            //alert(tog);
+        } else {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $('#menu-toggle').html('<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單');
+            tog = 1;
+            //alert(tog);
+        }
     });
     </script>
 </body>

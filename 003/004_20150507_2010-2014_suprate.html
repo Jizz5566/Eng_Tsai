@@ -1,4 +1,5 @@
-<!DOCTYPE html> <html>
+<!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -171,13 +172,9 @@
                 },
                 suppressInfoWindows: true,
                 map: map,
-                styleId: 2,
-                templateId: 2
+                styleId: 3,
+                templateId: 3
             });
-            if (i == 0) {
-                layer_[0].styleId = 3;
-                layer_[0].templateId = 3;
-            }
             layer_[i].setMap(map);
             //console.log(layer_[i]);
         }
@@ -258,7 +255,7 @@
                 'click',
                 function() {
                     if (infowindow) infowindow.close();
-                    ClearJson(mapLabel);
+                    ClearJson(tableId);
                     TownName_Json();
                     filterMap(layer_, tableId, map);
                 });
@@ -322,56 +319,10 @@
 
     var dataLength;
 
-    function ClearJson(dataLength) {
-        var dataLength = TownName_Json();
-        console.log(query);
-        var query = "SELECT latitude, longitude, " +
-            "COUNTY_ID , County_NAME, TOWN_NAME " +
-            "FROM 1OUevGG1bi9g8ULlTdjvGdkRjy4kYhokkSuNZedG3 ";
-        var where = generateWhere();
-        if (where) {
-            query += "WHERE " + where;
-        }
-        var queryText = encodeURIComponent(query);
-
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
-        url.push('?sql=' + queryText);
-        url.push('&key=AIzaSyDYnfgKBk-W_pXHjuYYSemkPFNFZhGQ-Q0');
-        //url.push('&callback=TownName_Json');
-
-        $.ajax({
-            type: 'GET',
-            url: url.join(''),
-            jsonpCallback: 'jsonCallback',
-            dataType: 'json',
-            success: function(data) {
-                //console.log(data);
-                for (var i = 0; i < data.rows.length; i++) {
-                    var lng = data.rows[i][0];
-                    var lat = data.rows[i][1];
-                    var town = '';
-                    //console.log(town);
-                    mapLabel = new MapLabel({
-                        minZoom: 9,
-                        text: town,
-                        position: new google.maps.LatLng(lat, lng),
-                        map: map,
-                        fontSize: 16,
-                        fontColor: '#ffff00',
-                        strokeWeight: 5,
-                        strokeColor: '#000000',
-                        zIndex: 2,
-                        align: 'center'
-                    });
-                    mapLabel.set('position', mapLabel.position);
-                }
-                dataLength = data.rows.length;
-                return dataLength;
-            },
-            error: function() {
-                alert("ERROR!!!");
-            }
-        });
+    function ClearJson(tableId) {
+        for (var i = 0; i < tableId.length; i++) {
+            layer_[i].setMap(null);
+        };
 
     }
 
@@ -381,20 +332,20 @@
         var where = generateWhere();
         for (var i = 0; i < tableId.length; i++) {
             if (where) {
-                if (!layer_[0].getMap()) {
+                if (!layer_[i].getMap()) {
                     layer_[i].setMap(map);
                 }
-                layer_[0].setOptions({
+                layer_[i].setOptions({
                     query: {
                         select: 'geometry',
                         from: tableId[i],
                         where: where
                     },
                     styleId: 3,
-                    templateId: 3,
-                    map: map
+                    templateId: 3
+                        //map: map
                 });
-                for (var i = 1; i < tableId.length; i++) {
+                /*for (var i = 1; i < tableId.length; i++) {
                     if (!layer_[i].getMap()) {
                         layer_[i].setMap(map);
                     }
@@ -404,11 +355,11 @@
                             from: tableId[i],
                             where: where
                         }
-                        /*styleId: 2,
+                        styleId: 2,
                         templateId: 2
-                        map: map*/
+                        map: map
                     });
-                };
+                };*/
             } else {
                 for (var i = 0; i < tableId.length; i++) {
                     layer_[i].setMap(null);
@@ -510,8 +461,9 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-            <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
-            <h1>2010與2014年六都選舉得票率差距</h1>
+                <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
+
+                <h1>2010與2014年六都選舉支持率差距</h1>
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -551,23 +503,23 @@
                                 <div class="col-md-4">
                                     <ul class="nav navbar-nav" style="margin-top:15px;">
                                         <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="TPE" value="63"> 台北市
-                                    </label>
-                                    <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="XBE" value="65"> 新北市
-                                    </label>
-                                    <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="TAO" value="68"> 桃園市
-                                    </label>
-                                    <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="TCH" value="66"> 台中市
-                                    </label>
-                                    <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="TNA" value="67"> 台南市
-                                    </label>
-                                    <label class="county">
-                                        <input type="checkbox" class="county" checked="checked" name="store" id="KSH" value="64"> 高雄市
-                                    </label>
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="TPE" value="63"> 台北市
+                                        </label>
+                                        <label class="county">
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="XBE" value="65"> 新北市
+                                        </label>
+                                        <label class="county">
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="TAO" value="68"> 桃園市
+                                        </label>
+                                        <label class="county">
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="TCH" value="66"> 台中市
+                                        </label>
+                                        <label class="county">
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="TNA" value="67"> 台南市
+                                        </label>
+                                        <label class="county">
+                                            <input type="checkbox" class="county" checked="checked" name="store" id="KSH" value="64"> 高雄市
+                                        </label>
                                     </ul>
                                 </div>
                             </ul>
@@ -575,11 +527,11 @@
                     </div>
                 </nav>
                 <div class="col-md-12">
-                
+
                     <div id="map_canvas"></div>
                     <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
                     <div id="googft-legend">
-                        <p id="googft-legend-title">得票率差距</p>
+                        <p id="googft-legend-title">支持率差距</p>
                         <div>
                             <span class="googft-legend-swatch" style="background-color: #6A30FF"></span>
                             <span class="googft-legend-range">藍大於綠 5％以上</span>
@@ -600,7 +552,7 @@
                     </div>
                     <ol>
                         <h3>圖表說明：</h3>
-                        <li>2010與2014兩年度選舉的藍綠得票率差距，分為四級級距（顏色愈深代表藍綠差距愈大）：
+                        <li>2010與2014兩年度選舉的藍綠支持率差距，分為四級級距（顏色愈深代表藍綠差距愈大）：
                             <ul>
                                 <li>（1）藍大於綠 5％以上</li>
                                 <li>（2）藍大於綠 5％以下</li>
