@@ -5,14 +5,16 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <style>
-    body, html {
-        margin: 0; padding: 0; height: 100%; overflow: hidden;
-    }
-    #content {
-        position:absolute; 
-        left: 0; right: 0; bottom: 0; top: 0px; 
-        height: 800px;
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
     }
     #map-canvas {
         width: auto;
@@ -70,8 +72,8 @@
         font-weight: bold;
     }
     </style>
+    <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap Core CSS -->
-
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -84,7 +86,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    
+
 </head>
 
 <body>
@@ -94,30 +96,33 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="./index.html">
-                        <h3>小英基金會－</h3>
-                        <h3>選舉地圖專案</h3>
+                    <a href="http://www.thinkingtaiwan.org/" target="_blank"><img src="css/logo.png" class="logo">
                     </a>
                 </li>
-                <hr color=gray size=3 align=center width=100%>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">01.台北市搖擺里前120名</span><a href="002/001_20150108_TPE120.html">
-                台北市歷年選舉支持率排名前120名</a>
+                <hr color=red size=5 align=center width=100%>
+                <div id="prj-title">
+                <h4 align="center"><strong>小英基金會－選舉地圖專案</strong></h4>    
+                </div>
+                <hr color=red size=5 align=center width=100%>
+                <li ><span class="ct-title">台北市支持率</span>
+                <div><a href="002/001_20150108_TPE120.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                柯P支持率排名前120名</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">02.2010-2014六都選舉支持率差距</span>
-                    <a href="003/004_20150507_2010-2014_suprate.html">
-                六都縣市的支持率差距地圖</a>
+                <li ><span class="ct-title">2010＆2014六都選舉分析</span>
+                <div><a href="003/004_20150507_2010-2014_suprate.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都支持率差距分佈地圖</a></div>
+                </li>
+                <li>
+                <div><a href="004/003_20150416_2010-2014_votediff_filter.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都得票率差距分佈地圖</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">03.2010-2014六都選舉得票率差距</span>
-                    <a href="004/003_20150416_2010-2014_votediff_filter.html">
-                六都縣市的得票率差距地圖</a>
-                </li>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">04.2010-2014四都投票率比較</span>
-                    <a href="005/001_20150418_2010-2014_comparison.html">
-                四都投票率消長變化</a>
+                <li><span class="ct-title">2010＆2014四都投票分析</span>
+                    <div><a href="005/001_20150418_2010-2014_comparison.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都投票率變化</a>
+                    </div>
+                    <div><a href="005/003_20150507_4cities_improvement.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都支持率進步里</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -125,12 +130,10 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-            <div id="content">
-            <iframe width="100%" height="100%" frameborder="0" src="http://www.thinkingtaiwan.org/"  scrolling="auto" />
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="100%" height="100%" frameborder="0" src="http://www.thinkingtaiwan.org/" scrolling="auto" />
             </div>
-
-            </div>
+            <div class="container-fluid"></div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -141,7 +144,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
 
-    
+
 </body>
 
 </html>

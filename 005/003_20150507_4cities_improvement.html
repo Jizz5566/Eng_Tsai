@@ -171,8 +171,8 @@
         //You can use FT Wizard http://fusion-tables-api-samples.googlecode.com/svn/trunk/FusionTablesLayerWizard/src/index.html
 
         Geojson();
-        Geojson2("County_NAME IN '台北市'");
-        RangeSlider(1, 87);
+        //Geojon2("County_NAME IN '台北市'");
+        //RangeSlider([1,87],"County_NAME IN '台北市'");
 
         //用迴圈畫三層地圖
         for (var i = 0; i < tableId.length; i++) {
@@ -188,6 +188,7 @@
                 templateId: 2
             });
         }
+
 
 
         //點擊infowindow的內容用迴圈來跑
@@ -209,7 +210,7 @@
                 '<td class="tg-s6z2">' + e.row['選舉人數'].value + '人</td>' +
                 '</tr>' +
                 '<tr>' +
-                '<td class="tg-hgcj">排名：</td>' +
+                '<td class="tg-hgcj">支持率排名：</td>' +
                 '<td class="tg-s6z2" style="font-weight:bold; font-size:16px;">' + e.row['Ranking'].value + '</td>' +
                 '</tr>' +
                 '</table>' +
@@ -287,7 +288,7 @@
         }
         var queryText = encodeURIComponent(query);
 
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        var url = ['https://www.googleapis.com/fusiontables/v2/query'];
         url.push('?sql=' + queryText);
         url.push('&key=AIzaSyDYnfgKBk-W_pXHjuYYSemkPFNFZhGQ-Q0');
         //url.push('&callback=TownName_Json');
@@ -342,9 +343,9 @@
     }
 
     function filterMap(layer_, where, tableId, map) {
-        // var where = generateWhere();
-        for (var i = 0; i < 3; i++) {
-            if (where) {
+        var wheLen = layer_[0].query.where.length;
+        //alert(wheLen);
+        if (wheLen < 23) {
                 for (var i = 0; i < tableId.length; i++) {
                     if (!layer_[i].getMap()) {
                         layer_[i].setMap(map);
@@ -355,17 +356,32 @@
                             from: tableId[i],
                             where: where
                         }
-                        /*styleId: 2,
-                        templateId: 2
-                        map: map*/
                     });
-                };
+
+                }
+            } else if (wheLen > 23) {
+                layer_[0].setOptions({
+                        query: {
+                            select: 'geometry',
+                            from: tableId[0],
+                            where: where
+                        }
+                    });
+                for (var i = 1; i < tableId.length; i++) {
+                    layer_[i].setOptions({
+                        query: {
+                            select: 'geometry',
+                            from: tableId[i],
+                            where: where.substring(0,22)
+                        }
+                    });
+                }
+                //alert(where.substring(0,22));
             } else {
                 for (var i = 0; i < 3; i++) {
                     layer_[i].setMap(null);
                 };
             }
-        }
     }
 
     function clearmap(layer_, markersArray) {
@@ -406,30 +422,33 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="../index.html">
-                        <h3>小英基金會－</h3>
-                        <h3>選舉地圖專案</h3>
+                    <a href="http://www.thinkingtaiwan.org/" target="_blank"><img src="../css/logo.png" class="logo">
                     </a>
                 </li>
-                <hr color=gray size=3 align=center width=100%>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">01.台北市搖擺里前120名</span><a href="../002/001_20150108_TPE120.html">
-                台北市歷年選舉支持率排名前120名</a>
+                <hr color=red size=5 align=center width=100%>
+                <div id="prj-title">
+                <h4 align="center"><strong>小英基金會－選舉地圖專案</strong></h4>    
+                </div>
+                <hr color=red size=5 align=center width=100%>
+                <li ><span class="ct-title">台北市支持率</span>
+                <div><a href="../002/001_20150108_TPE120.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                柯P支持率排名前120名</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">02.2010-2014六都選舉支持率差距</span>
-                    <a href="../003/004_20150507_2010-2014_suprate.html">
-                六都縣市的支持率差距地圖</a>
+                <li ><span class="ct-title">2010＆2014六都選舉分析</span>
+                <div><a href="../003/004_20150507_2010-2014_suprate.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都支持率差距分佈地圖</a></div>
+                </li>
+                <li>
+                <div><a href="../004/003_20150416_2010-2014_votediff_filter.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都得票率差距分佈地圖</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">03.2010-2014六都選舉得票率差距</span>
-                    <a href="../004/003_20150416_2010-2014_votediff_filter.html">
-                六都縣市的得票率差距地圖</a>
-                </li>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">04.2010-2014四都投票率比較</span>
-                    <a href="../005/001_20150418_2010-2014_comparison.html">
-                四都投票率消長變化</a>
+                <li><span class="ct-title">2010＆2014四都投票分析</span>
+                    <div><a href="../005/001_20150418_2010-2014_comparison.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都投票率變化</a>
+                    </div>
+                    <div><a href="../005/003_20150507_4cities_improvement.html" class="btn-default active"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都支持率進步里</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -439,7 +458,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
-                <h1>2010-2014年選舉年度投票率比較</h1>
+                <h1>2010-2014年支持率進步里比較</h1>
                 <div id="county">
                     <div>
                         <button type="button" name="store" id="0" value="台北市" style="font-size:16px;font-weight: bold;" class="btn btn-default btn-sm">台北市</button>
@@ -452,10 +471,7 @@
                 $(function() {
                     $('.btn').click(function() {
                         var ID = $(this).attr('id');
-                        //clearmap(layer_, markersArray)
-                        var where = "'County_NAME' IN ('" + $(this).val() + "')";
-                        Geojson2(where);
-                        //RangeSlider(vil, where);
+                        where = 'County_NAME '+ "IN ('" + $(this).val() +"')" ;
                         var add = ID;
                         codeAddress(add);
                         if (infowindow) infowindow.close();
@@ -468,17 +484,10 @@
                     <div id="map_canvas"></div>
                 </div>
                 <br>
-                <p>
-                    <label for="amount">Price range:</label>
-                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                </p>
-                <div id="slider-range"></div>
-                <br>
                 <ol>
                     <h3>圖表說明：</h3>
                     <h3>比較2010與2014四都兩屆選舉的支持率，篩選成長明顯的特定進步里。</h3>
                     <div class="container">
-
                     </div>
                 </ol>
             </div>
@@ -486,62 +495,7 @@
     </div>
 
     <!-- Menu Toggle Script -->
-    <script>
-    var vil = [];
-
-    function Geojson2(where) {
-        var query = "SELECT Ranking, COUNTY_ID , County_NAME, " +
-            "Villige_NAME, geometry " +
-            "FROM 1GW1j-SBJtD4j1xqR5kqStDPMt25Zlu32LfNnwENb ";
-        //var where = generateWhere();
-        if (where) {
-            query += "WHERE " + where;
-        }
-        var queryText = encodeURIComponent(query);
-
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
-        url.push('?sql=' + queryText);
-        url.push('ORDER BY Ranking {ASC}');
-        url.push('&key=AIzaSyDYnfgKBk-W_pXHjuYYSemkPFNFZhGQ-Q0');
-        //url.push('&callback=TownName_Json');
-
-        $.ajax({
-            type: 'GET',
-            url: url.join(''),
-            jsonpCallback: 'jsonCallback',
-            dataType: 'json',
-            success: function(data) {
-                //console.log(data);
-                vil[0] = data.rows[0][0];
-                var len = data.rows.length;
-                vil[1] = data.rows[len - 1][0];
-                RangeSlider(vil, where);
-            },
-            error: function() {
-                alert("ERROR!!!");
-            }
-        });
-    }
-
-    function RangeSlider(vil, where) {
-        $("#slider-range").slider({
-            range: true,
-            min: 1,
-            max: 120,
-            values: [vil[0], vil[1]],
-            slide: function(event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                var limit =  ' LIMIT ' + ((ui.values[1] - ui.values[0]) +1) ;
-                var xxx = ' ORDER BY Ranking {ASC}' ;
-                wherA = where + xxx + limit;
-                //alert (wherA);
-                filterMap(layer_, wherA, tableId, map); 
-            }
-        });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-            " - $" + $("#slider-range").slider("values", 1));
-    }
-    </script>
+    
     <script>
     var tog = 1;
     $("#menu-toggle").click(function(e) {

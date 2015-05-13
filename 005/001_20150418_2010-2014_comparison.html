@@ -19,6 +19,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href='http://www.thinkingtaiwan.org/favicon.ico' rel='icon' type='image/x-icon' />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -390,30 +391,33 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="../index.html">
-                        <h3>小英基金會－</h3>
-                        <h3>選舉地圖專案</h3>
+                    <a href="http://www.thinkingtaiwan.org/" target="_blank"><img src="../css/logo.png" class="logo">
                     </a>
                 </li>
-                <hr color=gray size=3 align=center width=100%>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">01.台北市搖擺里前120名</span><a href="../002/001_20150108_TPE120.html">
-                台北市歷年選舉支持率排名前120名</a>
+                <hr color=red size=5 align=center width=100%>
+                <div id="prj-title">
+                <h4 align="center"><strong>小英基金會－選舉地圖專案</strong></h4>    
+                </div>
+                <hr color=red size=5 align=center width=100%>
+                <li ><span class="ct-title">台北市支持率</span>
+                <div><a href="../002/001_20150108_TPE120.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                柯P支持率排名前120名</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">02.2010-2014六都選舉支持率差距</span>
-                    <a href="../003/004_20150507_2010-2014_suprate.html">
-                六都縣市的支持率差距地圖</a>
+                <li ><span class="ct-title">2010＆2014六都選舉分析</span>
+                <div><a href="../003/004_20150507_2010-2014_suprate.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都支持率差距分佈地圖</a></div>
+                </li>
+                <li>
+                <div><a href="../004/003_20150416_2010-2014_votediff_filter.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                六都得票率差距分佈地圖</a></div>
                 </li>
                 <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">03.2010-2014六都選舉得票率差距</span>
-                    <a href="../004/003_20150416_2010-2014_votediff_filter.html">
-                六都縣市的得票率差距地圖</a>
-                </li>
-                <hr color=gray size=3 align=center width=100%>
-                <li><span class="ct-title">04.2010-2014四都投票率比較</span>
-                    <a href="../005/001_20150418_2010-2014_comparison.html">
-                四都投票率消長變化</a>
+                <li><span class="ct-title">2010＆2014四都投票分析</span>
+                    <div><a href="../005/001_20150418_2010-2014_comparison.html" class="btn-default active"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都投票率變化</a>
+                    </div>
+                    <div><a href="../005/003_20150507_4cities_improvement.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 四都支持率進步里</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -422,7 +426,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-            <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
+                <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
                 <h1>2010-2014年選舉年度投票率比較</h1>
                 <div id="county">
                     <div>
@@ -448,7 +452,6 @@
                         if (ID == 0) {
                             $('#googft-legend.legendxx').empty();
                             $('#googft-legend.legendxx').prepend($('#TPE').html());
-
                         } else if (ID == 1) {
                             $('#googft-legend.legendxx').empty();
                             $('#googft-legend.legendxx').prepend($('#XBE').html());
@@ -466,7 +469,7 @@
                 <div style="height: 100%; width: 100%;">
                     <div id="map_canvas"></div>
                 </div>
-                                <ol>
+                <ol>
                     <h3>圖表說明：</h3>
                     <li>比較2010與2014四都兩屆選舉的投票率，以紅綠色系區分消長級距，各縣市分級不同：
                         <div class="container">
@@ -484,29 +487,26 @@
                                     <ul>
                                         新北市：
                                         <li>（1）-0.229～-0.119</li>
-                                        <li>（2）-0.119～-0.95</li>
-                                        <li>（3）-0.95～-0.71</li>
-                                        <li>（4）-0.71～0</li>
-                                        <li>（5）0～0.055</li>
+                                        <li>（2）-0.119～-0.095</li>
+                                        <li>（3）-0.095～0.002</li>
+                                        <li>（4）0.002～0.055</li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
                                     <ul>
                                         桃園市：
                                         <li>（1）-0.058～0</li>
-                                        <li>（2）0～0.062</li>
-                                        <li>（3）0.062～0.095</li>
-                                        <li>（4）0.095～0.121</li>
-                                        <li>（5）0.121～0.224</li>
+                                        <li>（2）0～0.095</li>
+                                        <li>（3）0.095～0.121</li>
+                                        <li>（4）0.121～0.224</li>
                                     </ul>
                                 </div>
                                 <div class="col-md-3">
                                     <ul>
                                         台中市：
                                         <li>（1）-0.121～-0.031</li>
-                                        <li>（2）-0.031～-0.014</li>
-                                        <li>（3）-0.014～0</li>
-                                        <li>（4）0～0.13</li>
+                                        <li>（2）-0.031～-0</li>
+                                        <li>（3）0～0.13</li>
                                     </ul>
                                 </div>
                             </div>
@@ -534,7 +534,7 @@
                     </div>
                     <div class="forth">
                         <span class="googft-legend-swatch" style="background-color: rgba(255,0,0,0.6)"></span>
-                        <span class="googft-legend-range">1% ～ 5.38%</span>
+                        <span class="googft-legend-range">1% ～ 5.4%</span>
                     </div>
                     <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                 </div>
@@ -554,7 +554,7 @@
                     </div>
                     <div class="forth">
                         <span class="googft-legend-swatch" style="background-color: rgba(255,0,0,0.6)"></span>
-                        <span class="googft-legend-range">1% ～ 5.38%</span>
+                        <span class="googft-legend-range">1% ～ 5.4%</span>
                     </div>
                     <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                 </div>
@@ -566,42 +566,34 @@
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(0,255,0,0.5)"></span>
-                        <span class="googft-legend-range">-11.9% ～ -0.95%</span>
+                        <span class="googft-legend-range">-11.9% ～ -9.5%</span>
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(243,243,243,0.5)"></span>
-                        <span class="googft-legend-range">-0.95% ～ -0.71%</span>
-                    </div>
-                    <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(243,243,243,0.5)"></span>
-                        <span class="googft-legend-range">-0.71% ～ 0%</span>
+                        <span class="googft-legend-range">-9.5% ～ 0.2%</span>
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(255,0,0,0.6)"></span>
-                        <span class="googft-legend-range">0% ～ 5.5%</span>
+                        <span class="googft-legend-range">0.2% ～ 5.5%</span>
                     </div>
                     <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                 </div>
                 <div id="TAO">
                     <p id="googft-legend-title">年間投票率消長-桃園市</p>
                     <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(182,215,168,0.6)"></span>
+                        <span class="googft-legend-swatch" style="background-color: rgba(56,118,29,0.6)"></span>
                         <span class="googft-legend-range">-5.8% ～ 0%</span>
                     </div>
                     <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(244,204,204,0.5)"></span>
-                        <span class="googft-legend-range"> 0% ～ 6.2%</span>
-                    </div>
-                    <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(224,102,102,0.5)"></span>
-                        <span class="googft-legend-range">6.2% ～ 9.5%</span>
-                    </div>
-                    <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(153,0,0,0.5)"></span>
-                        <span class="googft-legend-range">9.5% ～ 12.1%</span>
+                        <span class="googft-legend-swatch" style="background-color: rgba(243,243,243,0.5)"></span>
+                        <span class="googft-legend-range"> 0% ～ 9.5%</span>
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(255,0,0,0.6)"></span>
+                        <span class="googft-legend-range">9.5% ～ 12.1%</span>
+                    </div>
+                    <div>
+                        <span class="googft-legend-swatch" style="background-color: rgba(153,0,0,0.5)"></span>
                         <span class="googft-legend-range">12.1% ～ 22.4%</span>
                     </div>
                     <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
@@ -613,12 +605,8 @@
                         <span class="googft-legend-range">-12.1% ～ -3.1%</span>
                     </div>
                     <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(0,255,0,0.5)"></span>
-                        <span class="googft-legend-range">-3.1% ～ -1.4%</span>
-                    </div>
-                    <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(147,196,125,0.5)"></span>
-                        <span class="googft-legend-range">-1.4% ～ 0%</span>
+                        <span class="googft-legend-swatch" style="background-color: rgba(243,243,243,0.5)"></span>
+                        <span class="googft-legend-range">-3.1% ～ 0%</span>
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(255,0,0,0.5)"></span>
