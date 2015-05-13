@@ -8,9 +8,9 @@
 }
 
 .output {
-position: fixed;
-top: 5px;
-left: 5px;
+position: relative;
+float:right;
+margin: 5px;
 z-index: 2;
 background-color: #000;
 background-color: rgba(0, 0, 0, 0.7);
@@ -38,8 +38,8 @@ font-weight: bold;
   border-radius: 10px;
 
   border: 1px solid #496805;
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
 }
 
 .slider > .dragger:hover {
@@ -62,7 +62,7 @@ font-weight: bold;
   border-radius: 8px;
 
   border: 1px solid #aaa;
-  height: 4px;
+  height: 8px;
 }
 
 .slider > .highlight-track {
