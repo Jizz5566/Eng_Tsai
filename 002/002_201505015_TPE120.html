@@ -73,10 +73,10 @@
     <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/infowindow.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -86,7 +86,8 @@
     <script type="text/javascript">
     var map;
     var layer_ = [];
-    var tableId = ['1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC', '1VMKy6uAM3PTT9UhSZQTTBVzZxaEfLp5g6nyy2h6j', '1zw0L4HbIz_dNFko8hxn5fUISMTfY3SbLiQzYlkkr'];
+    //1FqGIwoYhlY7rLHE8-Nu4fRwQF6gslPKsl8C_6sh-
+    var tableId = ['1STEbQnArsnj5HHbCjqqVJONRMWrCJ_47EsUSUnUj', '1VMKy6uAM3PTT9UhSZQTTBVzZxaEfLp5g6nyy2h6j', '1zw0L4HbIz_dNFko8hxn5fUISMTfY3SbLiQzYlkkr'];
     var infowindow;
 
     function initialize() {
@@ -142,16 +143,14 @@
                 layer_[0].setOptions({
                     query: {
                         select: "col11\x3e\x3e0",
-                        from: "1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC"
-                    },
-                styleId: 8,
-                templateId: 0
+                        from: "1STEbQnArsnj5HHbCjqqVJONRMWrCJ_47EsUSUnUj",
+                        where: "col8\x3e\x3e0 \x3e\x3d 1 and col8\x3e\x3e0 \x3c\x3d 120"
+                    }
                 });
             }
             layer_[i].setMap(map);
             //console.log(layer_[i]);
         }
-
 
         google.maps.event.addDomListener(document.getElementById('search-string_0'),
             'change',
@@ -165,23 +164,56 @@
                 //layer_0.setMap(map);
             });
         google.maps.event.addListener(layer_[0], 'click', function(e) {
-            var villige = e.row['Villige'].value;
+            var villige = e.row['Villige_NAME'].value;
             var nodeCol = document.createElement('div');
             if (infowindow) infowindow.close();
             else infowindow = new google.maps.InfoWindow();
             infowindow.setContent('<div class="tabs">' +
-                '<ul>' +
-                '<h4>2014年臺北市長選舉支持率排名：' + e.row['排序'].value + '</h4>' +
+                '<ul class="i8ik">' +
+                '<h4>兩年度綠營支持率差距：<span style="color:#ffff00;font-weight:bold;">' + e.row['支持率差距%'].value + '</span></h4>' +
                 '</ul>' +
                 '<div id="tab-2" style="overflow:hidden;">' + //firts tab content 
-                '<h4><b>' + e.row['Villige'].value + '</b></h4>' +
-                '<b align="left">2014年支持率：' + e.row['2014支持率'].value + '</b>' +
+                '<h4><b>' + e.row['Villige_NAME'].value + '</b></h4>' +
+                '<b align="left">2014年選民人數：' + e.row['People'].value + '</b>' +
                 '</br>' +
-                '<iframe frameborder="no" src="https://www.google.com/fusiontables/embedviz?containerId=googft-gviz-canvas&q=select+col0%3E%3E0%2C+col7%3E%3E0%2C+col8%3E%3E0%2C+col9%3E%3E0%2C+col10%3E%3E0%2C+col11%3E%3E0%2C+col12%3E%3E0+from+1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC+%20WHERE%20Villige=%27' + e.row['Villige'].value + '%27+order+by+col7%3E%3E0+asc+limit+10&viz=GVIZ&t=COLUMN&uiversion=2&gco_forceIFrame=true&gco_hasLabelsColumn=true&gco_vAxes=%5B%7B%22title%22%3A%22%E6%94%AF%E6%8C%81%E7%8E%87%22%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22useFormatFromData%22%3Afalse%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22formatOptions%22%3A%7B%22source%22%3A%22inline%22%2C+%22suffix%22%3A%22%25%22%2C+%22prefix%22%3A%22%22%2C+%22scaleFactor%22%3A%220.01%22%7D%2C+%22format%22%3A%220.%23%23%22%7D%2C%7B%22useFormatFromData%22%3Atrue%2C+%22viewWindow%22%3A%7B%22max%22%3Anull%2C+%22min%22%3Anull%7D%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%7D%5D&gco_useFirstColumnAsDomain=true&gco_isStacked=false&gco_booleanRole=certainty&gco_hAxis=%7B%22useFormatFromData%22%3Atrue%2C+%22minValue%22%3Anull%2C+%22maxValue%22%3Anull%2C+%22viewWindow%22%3Anull%2C+%22viewWindowMode%22%3Anull%7D&gco_legend=none&gco_title=&gco_theme=maximized&gco_tooltip=%7B%22isHtml%22%3Atrue%7D&gco_series=%7B%220%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%221%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%222%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%223%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%224%22%3A%7B%22errorBars%22%3A%7B%22errorType%22%3A%22percent%22%7D%7D%2C+%225%22%3A%7B%22targetAxisIndex%22%3A0%2C+%22color%22%3A%22none%22%2C+%22errorBars%22%3A%7B%22errorType%22%3A%22none%22%7D%7D%7D&tmplt=6&width=250&height=140" width="300" height="150" scrolling="no" />' +
-                '</div>');
+                '<div class="tabs">' +
+                '<ul>' +
+                '<li><a href="#DPP"><span>綠營</span></a></li>' + //tabs names
+                '<li><a href="#KMT"><span>藍營</span></a></li>' + //tabs names
+                '</ul>' +
+                '<div id="DPP">' + //First tab content
+                '<table class="tg" style="width:100%;">' +
+                '<tr>' +
+                '<td class="tg-bghc">得票數：</td>' +
+                '<td class="tg-bghc">得票率：</td>' +
+                '<td class="tg-bghc">支持率：</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td class="tg-lhm3">' + e.row['DPP'].value + '</td>' +
+                '<td class="tg-lhm3">' + e.row['DPP-rate'].value + '</td>' +
+                '<td class="tg-lhm3">' + (e.row['綠營支持率2014'].value * 100).toFixed(2) + '%' + '</td>' +
+                '</tr>' +
+                '</table>' +
+                '</div>' +
+                '<div id="KMT">' + //Second tab content
+                '<table class="tg" style="width:100%;">' +
+                '<tr>' +
+                '<td class="tg-9bfu">得票數：</td>' +
+                '<td class="tg-9bfu">得票率：</td>' +
+                '<td class="tg-9bfu">支持率：</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td class="tg-1uaf">' + e.row['KMT'].value + '</td>' +
+                '<td class="tg-1uaf">' + e.row['KMT-rate'].value + '</td>' +
+                '<td class="tg-1uaf">' + (e.row['藍營支持率2014'].value * 100).toFixed(2) + '%' + '</td>' +
+                '</tr>' +
+                '</table>' +
+                '</div>' +
+                '</div>'
+            );
             infowindow.setPosition(e.latLng);
             infowindow.open(map);
-            //$(".tabs").tabs();
+            $(".tabs").tabs();
         });
         infoWindow = new google.maps.InfoWindow();
     }
@@ -239,18 +271,25 @@
     }
 
     function changeMap_0() {
-        var whereClause = null;
+        var whereClause = "col8\x3e\x3e0 \x3e\x3d 1 and col8\x3e\x3e0 \x3c\x3d 120";
         var searchString = document.getElementById('search-string_0').value.replace(/'/g, "\\'");
         if (searchString != '--Select--') {
-            whereClause = " FULL IN ('臺北市" + searchString + "')";
+            whereClause = " Villige_NAME IN ('" + searchString + "')";
         }
         layer_[0].setOptions({
             query: {
-                select: "col24>>1",
-                from: "1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC",
+                select: "col11\x3e\x3e0",
+                from: "1STEbQnArsnj5HHbCjqqVJONRMWrCJ_47EsUSUnUj",
                 where: whereClause
             }
         });
+        /*layer_0.setOptions({
+            query: {
+                select: "col0>>0",
+                from: "1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC",
+                where: whereClause
+            }
+        });*/
         return whereClause;
 
     }
@@ -293,10 +332,10 @@
                 </div>
                 <hr color=red size=5 align=center width=100%>
                 <li><span class="ct-title">台北市支持率</span>
-                    <div><a href="../002/001_20150108_TPE120.html" class="btn-default active"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                    <div><a href="../002/001_20150108_TPE120.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
                 柯P支持率排名前120名</a>
                     </div>
-                    <div><a href="../002/002_201505015_TPE120.html"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
+                    <div><a href="../002/002_201505015_TPE120.html" class="btn-default active"><span class="glyphicon glyphicon-thumbs-up btn btn-lg"></span> 
                 柯P支持率增加前120名</a>
                     </div>
                 </li>
@@ -327,12 +366,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> 隱藏選單</a>
-                    <h1>台北市搖擺里前120名地圖（支持率）</h1>
+                    <h1>支持率增加前120名地圖</h1>
                 </div>
                 <script type="text/javascript">
-                var query = "SELECT '排序', Villige, '2014支持率' " +
-                    "FROM 1OfVUo8dqelx_HywAz1b2SjKVYf-mZ-KRYMblnPDC ";
-                var where = "ORDER BY '排序' {ASC} "
+                var query = "SELECT Rank, Villige_NAME, '支持率差距' " +
+                    "FROM 1STEbQnArsnj5HHbCjqqVJONRMWrCJ_47EsUSUnUj ";
+                var where = "WHERE Rank >= 1 {AND Rank <= 120} ORDER BY Rank {ASC} "
                 if (where) {
                     query += where;
                 }
@@ -349,7 +388,7 @@
                     jsonpCallback: 'jsonCallback',
                     dataType: 'json',
                     success: function(data) {
-                        //console.log(data);
+                        console.log(data);
                         var txt1 = '<option value="--Select--">--Select--</option>';
                         $('#search-string_0').append(txt1).addClass('clearList');
                         for (var i = 0; i < data.rows.length; i++) {
@@ -358,7 +397,7 @@
                             $('.clearList').append(
                                 ' <option value="' + villige + '">&lt;' + rank + '&gt;' + villige + '</option>'
                             );
-                            //console.log(villige);
+                            console.log(villige);
                         }
 
                     },
@@ -367,10 +406,12 @@
                     }
                 });
                 </script>
+
                 <div style="margin-top: 10px;">
                     <label class="layer-wizard-search-label">
-                        支持率排名1-120名：
+                        支持率增加前1-120名：
                         <select id="search-string_0">
+
                         </select>
                     </label>
                     <button type="button" id="button" onclick="clearList();" id="mybutton">Clear</button>
@@ -379,31 +420,31 @@
                 <div id="googft-mapCanvas"></div>
                 <ol>
                     <h3>圖表說明：</h3>
-                    <li>以2014年選舉台北市支持率前120名排序分為三級級距：
+                    <li>以2014年對2010年選舉台北市支持率增加的前120名里排序分為三級級距：
                         <ul>
-                            <li>（1）0.306～0.407</li>
-                            <li>（2）0.407～0.494</li>
-                            <li>（3）0.494～0.64</li>
+                            <li>（1）0.1～0.117</li>
+                            <li>（2）0.117～0.133</li>
+                            <li>（3）0.133～0.15</li>
                         </ul>
                     </li>
                     <li>點選上方排名選單，地圖會自動移至該里並且只顯示該里區塊</li>
                     <li>點擊[Clear]按鈕可顯示全部120里分佈地圖</li>
-                    <li>直接點選各里氣泡圖示，便會顯示1998-2010歷年支持率與2014年支持率比較圖表。</li>
+                    <li>直接點選各里，便會該里詳細得票資訊。</li>
                 </ol>
                 <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
                 <div id="googft-legend">
-                    <p id="googft-legend-title">2014綠營支持率</p>
+                    <p id="googft-legend-title">2014-2010支持率差距</p>
                     <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(39,78,19,0.5)"></span>
-                        <span class="googft-legend-range">30.6% to 40.7%</span>
+                        <span class="googft-legend-swatch" style="background-color: rgba(19,79,92,0.5)"></span>
+                        <span class="googft-legend-range">10.0% to 11.7%</span>
                     </div>
                     <div>
-                        <span class="googft-legend-swatch" style="background-color: rgba(217,210,233,0.5)"></span>
-                        <span class="googft-legend-range">40.7% to 49.4%</span>
+                        <span class="googft-legend-swatch" style="background-color: rgba(234,153,153,0.5)"></span>
+                        <span class="googft-legend-range">11.7% to 13.3%</span>
                     </div>
                     <div>
                         <span class="googft-legend-swatch" style="background-color: rgba(204,0,0,0.5)"></span>
-                        <span class="googft-legend-range">49.4% to 64%</span>
+                        <span class="googft-legend-range">13.3% to 15%</span>
                     </div>
                     <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                 </div>
@@ -413,7 +454,6 @@
     <!-- /#page-content-wrapper -->
 
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
